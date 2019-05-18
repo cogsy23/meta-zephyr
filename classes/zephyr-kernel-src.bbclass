@@ -2,15 +2,14 @@
 
 PREFERRED_VERSION_zephyr-kernel ??= "1.6.0"
 
-SRCREV = "d4e799d77a36eaf6d678b357c207411ec32b2d62"
-SRC_URI = "git://gerrit.zephyrproject.org/r/zephyr.git;protocol=https;branch=v1.6.0-branch \
-          file://Makefile.toolchain.yocto "
+SRCREV="8fe98d628edbfd3cc184dc039168598fede4f971"
+SRC_URI = "git://github.com/zephyrproject-rtos/zephyr;protocol=https;branch=v1.6-branch"
+SRC_URI += "file://Makefile.toolchain.yocto"
 PV = "1.6.0"
 
-# FIXME: This points to 1.7.rc4
-SRCREV_1.7 = "3d2893cf85d51ceca04aa3bec2dd5fc77625ff81"
-SRC_URI_1.7 = "git://gerrit.zephyrproject.org/r/zephyr.git;protocol=https;branch=v1.7-branch\
-          file://Makefile.toolchain.yocto "
+SRCREV_1.7 = "dcd41fcd85e439ff1999ca74ecf246b78e9afa46"
+SRC_URI_1.7 = "git://github.com/zephyrproject-rtos/zephyr;protocol=https;branch=v1.7-branch"
+SRC_URI_1.7 += "file://Makefile.toolchain.yocto"
 PV_1.7 = "1.7.0"
 
 LICENSE = "Apache-2.0"
