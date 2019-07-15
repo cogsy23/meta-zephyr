@@ -1,18 +1,35 @@
-require zephyr-kernel.inc
-require zephyr-kernel-common.inc
-inherit deploy
+inherit deploy pkgconfig
 
-ZEPHYR_SRC_DIR = "${S}/samples/philosophers"
-ZEPHYR_BASE = "${S}"
+SRCREV="8fe98d628edbfd3cc184dc039168598fede4f971"
+SRC_URI = "git://github.com/zephyrproject-rtos/zephyr;protocol=https;branch=v1.6-branch"
+SRC_URI += "file://Makefile.toolchain.yocto"
+PV = "1.14.0"
 
-do_compile () {
-    cd ${ZEPHYR_SRC_DIR}
-    oe_runmake ${ZEPHYR_MAKE_ARGS}
+LICENSE = "Apache-2.0"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
+
+DEPENDS += " dtc-native gperf-native virtual/libc libgcc"
+
+OECMAKE_SOURCEPATH = "${S}/samples/philosophers"
+export ZEPHYR_BASE = "${S}"
+
+#TARGET_OS = "Generic"
+
+#TODO convince zephyr to use supplied toolchain.cmake
+export ZEPHYR_TOOLCHAIN_VARIANT = "toolchain"
+
+#These are supplied in toolchain.cmake
+unset CFLAGS
+unset CXXFLAGS
+
+python () {
+    # Translate MACHINE into Zephyr BOARD
+    # Zephyr BOARD is basically our MACHINE, except we must use "-" instead of "_"
+    board = d.getVar('MACHINE',True)
+    board = board.replace('-', '_')
+    d.setVar('BOARD',board)
 }
 
-do_deploy () {
-    install -D samples/philosophers/outdir/${BOARD}/zephyr.elf ${DEPLOYDIR}/${PN}.elf
-    install -D samples/philosophers/outdir/${BOARD}/zephyr.bin ${DEPLOYDIR}/${PN}.bin
-}
+export BOARD = "${BOARD}"
 
-addtask deploy after do_compile
+inherit cmake

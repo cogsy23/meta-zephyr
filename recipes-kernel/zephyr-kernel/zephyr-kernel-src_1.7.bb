@@ -2,7 +2,7 @@
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
-SRCREV = "3d2893cf85d51ceca04aa3bec2dd5fc77625ff81"
+SRCREV = "0de06cfb7051f663d02912e5cb081348cc1ffbe5"
 SRC_URI = "git://gerrit.zephyrproject.org/r/zephyr.git;protocol=https;branch=v1.7-branch"
 SRC_URI += "file://Makefile.toolchain.yocto"
 
